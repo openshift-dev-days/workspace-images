@@ -1,0 +1,16 @@
+schema_version: 1
+name: quarkus
+version: v1.0
+description: "Installs the Quarkus CLI"
+artifacts:
+- name: new-project
+  path: new-project.sh
+  target: new-project.sh
+args:
+- name: QUARKUS_VERSION
+  value: 3.33.1.1
+envs:
+- name: JBANG_DIR
+  value: "/usr/local/jbang"
+execute:
+- script: install.sh

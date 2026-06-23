@@ -1,0 +1,10 @@
+schema_version: 1
+name: opencode
+version: latest
+description: "Installs OpenCode"
+args:
+- name: OPENCODE_VERSION
+  value: v1.17.4
+execute:
+- script: install.sh
+

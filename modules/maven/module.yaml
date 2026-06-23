@@ -1,0 +1,17 @@
+schema_version: 1
+name: maven
+version: v1.0
+description: "Installs Latest Apache Maven"
+envs:
+- name: MAVEN_OPTS
+  value: -Djavax.net.ssl.trustStore=${HOME}/.keystore -Djavax.net.ssl.trustStorePassword=changeit
+# Uncomment the artifacts section below to embed a global settings.xml into the container image.
+# Note: Also uncomment the relevant lines in the install.sh script
+#
+# artifacts:
+# - name: settings.xml
+#   path: settings.xml
+#   target: settings.xml
+#   dest: /
+execute:
+- script: install.sh

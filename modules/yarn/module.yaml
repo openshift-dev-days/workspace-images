@@ -1,0 +1,6 @@
+schema_version: 1
+name: yarn
+version: latest
+description: "Installs Yarn"
+execute:
+- script: install.sh

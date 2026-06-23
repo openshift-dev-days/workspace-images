@@ -1,0 +1,12 @@
+schema_version: 1
+name: ansible
+version: v1.0
+description: "Installs Ansible Tools"
+packages:
+  install:
+  - python3-pip 
+  - python3-devel
+  - helm
+  - kustomize
+execute:
+- script: install.sh

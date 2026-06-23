@@ -1,0 +1,59 @@
+schema_version: 1
+name: dev-base
+version: v1.0
+description: "Installs Base Developer Tools"
+packages:
+  install:
+  - procps-ng
+  - openssl
+  - git
+  - git-lfs
+  - tar
+  - gzip
+  - zip
+  - xz
+  - unzip
+  - which
+  - shadow-utils
+  - bash
+  - zsh
+  - jq
+  - podman
+  - buildah
+  - skopeo
+  - podman-docker
+  - aardvark-dns
+  - ca-certificates
+  - python3
+  - python3-pip
+  - python3-devel
+  - fuse-overlayfs
+  - util-linux
+  - vim-minimal
+  - vim-enhanced
+  - pinentry
+execute:
+- script: install.sh
+envs:
+- name: HOME
+  value: "/projects"
+- name: BUILDAH_ISOLATION
+  value: chroot
+- name: PATH
+  value: ${PATH}:/projects/.bin
+artifacts:
+- name: entrypoint.sh
+  path: entrypoint.sh
+  target: entrypoint.sh
+  dest: /
+run:
+  entrypoint:
+  - "/usr/libexec/podman/catatonit"
+  - "--"
+  - "/entrypoint.sh"
+  cmd:
+  - "tail"
+  - "-f"
+  - "/dev/null"
+  user: 1000
+  workdir: "/projects"

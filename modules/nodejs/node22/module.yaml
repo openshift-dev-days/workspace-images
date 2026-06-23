@@ -1,0 +1,21 @@
+schema_version: 1
+name: node22
+version: latest
+description: "Installs Node"
+args:
+- name: NODE_VERSION
+  value: v22.22.2
+- name: NODE_EXTRA_CA_CERTS
+envs:
+- name: PATH
+  value: ${PATH}:/usr/local/node/bin
+# Uncomment the artifacts section below to embed a global npmrc into the container image.
+# Note: Also uncomment the relevant lines in the install.sh script
+#
+# artifacts:
+# - name: npmrc
+#   path: npmrc
+#   target: npmrc
+#   dest: /
+execute:
+- script: install.sh

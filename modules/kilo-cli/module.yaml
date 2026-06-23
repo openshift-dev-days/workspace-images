@@ -1,0 +1,7 @@
+schema_version: 1
+name: kilo-cli
+version: latest
+description: "Installs Kilo CLI"
+execute:
+- script: install.sh
+
