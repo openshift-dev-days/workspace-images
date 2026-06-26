@@ -1,7 +1,6 @@
 FROM FROM registry.access.redhat.com/ubi10-minimal
 
 ARG USER_HOME_DIR="/home/user"
-ARG WORK_DIR="/cekit"
 
 ENV HOME=${USER_HOME_DIR}
 ENV BUILDAH_ISOLATION=chroot
@@ -12,7 +11,6 @@ RUN microdnf --disableplugin=subscription-manager install -y openssl git tar sha
     microdnf update -y ; \
     microdnf clean all ; \
     mkdir -p ${USER_HOME_DIR} ; \
-    mkdir -p ${WORK_DIR} ; \
     chgrp -R 0 /home ; \
     #
     # Setup for root-less podman
@@ -25,7 +23,7 @@ RUN microdnf --disableplugin=subscription-manager install -y openssl git tar sha
     ln -s /projects/bin/oc /usr/local/bin/oc ; \
     ln -s /projects/bin/kubectl /usr/local/bin/kubectl ; \
     chmod +x /entrypoint-userns.sh ; \
-    chmod -R g=u /etc/passwd /etc/group /etc/subuid /etc/subgid /home ${WORK_DIR}
+    chmod -R g=u /etc/passwd /etc/group /etc/subuid /etc/subgid /home
 
-WORKDIR ${WORK_DIR}
+WORKDIR ${USER_HOME_DIR}
 ENTRYPOINT [ "/entrypoint-userns.sh" ]
