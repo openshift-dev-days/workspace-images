@@ -12,16 +12,21 @@ RUN microdnf --disableplugin=subscription-manager install -y openssl git tar sha
     microdnf clean all ; \
     mkdir -p ${USER_HOME_DIR} ; \
     chgrp -R 0 /home ; \
+    # Install YQ
+    TEMP_DIR="$(mktemp -d)" ; \ 
+    YQ_VER=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/mikefarah/yq/releases/latest)) ; \
+    curl -fsSL -o ${TEMP_DIR}/yq.tar.gz https://github.com/mikefarah/yq/releases/download/${YQ_VER}/yq_linux_amd64.tar.gz ; \
+    tar -xzf ${TEMP_DIR}/yq.tar.gz -C ${TEMP_DIR} ; \
+    cp ${TEMP_DIR}/yq_linux_amd64 /usr/local/bin/yq ; \
+    chmod +x /usr/local/bin/yq ; \
+    rm -rf "${TEMP_DIR}" ; \
     #
     # Setup for root-less podman
     #
-    mkdir -p "${HOME}"/.config/containers ; \
     setcap cap_setuid+ep /usr/bin/newuidmap ; \
     setcap cap_setgid+ep /usr/bin/newgidmap ; \
     touch /etc/subgid /etc/subuid ; \
     pip install -U cekit ; \
-    ln -s /projects/bin/oc /usr/local/bin/oc ; \
-    ln -s /projects/bin/kubectl /usr/local/bin/kubectl ; \
     chmod +x /entrypoint-userns.sh ; \
     chmod -R g=u /etc/passwd /etc/group /etc/subuid /etc/subgid /home
 
