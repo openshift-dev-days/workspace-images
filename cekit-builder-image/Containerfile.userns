@@ -1,0 +1,48 @@
+FROM registry.access.redhat.com/ubi10-minimal
+ARG USER_HOME_DIR="/home/builder"
+ARG WORK_DIR="/home/builder"
+
+ENV HOME=${USER_HOME_DIR}
+ENV BUILDAH_ISOLATION=chroot
+
+COPY --chown=0:0 entrypoint.sh /
+
+RUN microdnf --disableplugin=subscription-manager install -y openssl git tar shadow-utils bash podman python3-pip python3-devel aardvark-dns fuse-overlayfs util-linux ; \
+    microdnf update -y ; \
+    microdnf clean all ; \
+    pip3 install cekit ; \
+    chmod +x /entrypoint.sh ; \
+    ##
+    ## Setup for root-less podman
+    ##
+    # Create the User's home directory
+    mkdir -p ${USER_HOME_DIR} ; \
+    chown -R 1000:1000 ${USER_HOME_DIR} ; \
+    #
+    # Add the user to /etc/passwd and /etc/group
+    echo "user:x:1000:1000:devspaces user:${USER_HOME_DIR}:/bin/bash" >> /etc/passwd ; \
+    echo "user:x:1000:" >> /etc/group ; \
+    #
+    # Add entries for uid and gid mappings for the user
+    echo "user:1001:64535" >> /etc/subuid ; \
+    echo "user:1001:64535" >> /etc/subgid ; \
+    #
+    # Enable podman to create uid and gid maps for the user
+    setcap cap_setuid+ep /usr/bin/newuidmap ; \
+    setcap cap_setgid+ep /usr/bin/newgidmap ; \
+    #
+    # Install YQ
+    TEMP_DIR="$(mktemp -d)" ; \ 
+    YQ_VER=$(basename $(curl -Ls -o /dev/null -w %{url_effective} https://github.com/mikefarah/yq/releases/latest)) ; \
+    curl -fsSL -o ${TEMP_DIR}/yq.tar.gz https://github.com/mikefarah/yq/releases/download/${YQ_VER}/yq_linux_amd64.tar.gz ; \
+    tar -xzf ${TEMP_DIR}/yq.tar.gz -C ${TEMP_DIR} ; \
+    cp ${TEMP_DIR}/yq_linux_amd64 /usr/local/bin/yq ; \
+    chmod +x /usr/local/bin/yq ; \
+    rm -rf "${TEMP_DIR}"
+
+# The SCC that we are using will ensure that the user runs as UID 1000 in its own user namespace on the host node.
+USER 1000
+WORKDIR ${WORK_DIR}
+# Using catatonit ensures that our running container has a process reaper.  This avoids zombie processes in the container.
+ENTRYPOINT ["/usr/libexec/podman/catatonit","--","/entrypoint.sh"]
+CMD [ "tail", "-f", "/dev/null" ]
