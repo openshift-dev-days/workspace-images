@@ -1,5 +1,5 @@
 name: workspace-base
-from: image-registry.openshift-image-registry.svc:5000/imported-images/ubi10:10.1
+from: image-registry.openshift-image-registry.svc:5000/workspace-images/ubi10:10.2
 version: ubi10
 packages:
   manager: dnf
