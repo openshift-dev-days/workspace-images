@@ -1,4 +1,4 @@
-FROM FROM registry.access.redhat.com/ubi10-minimal
+FROM registry.access.redhat.com/ubi10-minimal
 
 ARG USER_HOME_DIR="/home/user"
 
