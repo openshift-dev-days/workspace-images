@@ -17,6 +17,8 @@ if [ ! -d "${HOME}/.config/containers" ]; then
   fi
 fi
 
+. /workspace-init.sh
+
 # Create Java Keystore
 if [ command -v keytool > /dev/null 2>&1 ] & [ ! -f ${HOME}/.keystore ]
 then
@@ -53,7 +55,5 @@ then
     echo "export MAVEN_OPTS=\"-Djavax.net.ssl.trustStore=${HOME}/.keystore -Djavax.net.ssl.trustStorePassword=changeit\"" >> ${HOME}/.zshrc
   fi
 fi
-
-. /workspace-init.sh
 
 exec "$@"
