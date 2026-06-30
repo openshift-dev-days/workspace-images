@@ -4,7 +4,7 @@ version: latest
 description: "Installs OpenCode"
 args:
 - name: OPENCODE_VERSION
-  value: v1.17.4
+  value: v1.17.11
 execute:
 - script: install.sh
 

@@ -13,3 +13,4 @@ modules:
   - name: maven
   - name: quarkus
   - name: opencode
+  - name: zoocode

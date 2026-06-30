@@ -1,0 +1,6 @@
+schema_version: 1
+name: zoocode
+version: latest
+description: "Installs Zoo Code configuration"
+execute:
+- script: install.sh
