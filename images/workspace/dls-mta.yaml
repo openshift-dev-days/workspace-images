@@ -1,0 +1,14 @@
+name: dls-mta
+from: image-registry.openshift-image-registry.svc:5000/workspace-images/workspace-base:ubi10
+version: latest
+packages:
+  manager: dnf
+  manager_flags: "--disableplugin=subscription-manager --setopt=tsflags=nodocs --setopt=install_weak_deps=0"
+modules:
+  repositories:
+  - path: "../../modules"
+  install:
+  - name: java21
+  - name: maven
+  - name: mta-vscode-extensions
+  - name: mta-provider-settings

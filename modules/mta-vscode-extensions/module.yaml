@@ -1,0 +1,26 @@
+schema_version: 1
+name: mta-vscode-extensions
+version: latest
+description: "Preloads MTA and Java VS Code extensions via DEFAULT_EXTENSIONS"
+args:
+- name: MTA_EXT_VERSION
+  value: "8.1.1"
+- name: REDHAT_JAVA_TAG
+  value: "v1.54.0"
+- name: REDHAT_JAVA_VSIX
+  value: "vscode-java-1.54.0-923.vsix"
+- name: JAVA_PACK_VERSION
+  value: "0.30.5"
+- name: JAVA_DEBUG_VERSION
+  value: "0.59.0"
+- name: JAVA_MAVEN_VERSION
+  value: "0.45.3"
+- name: JAVA_DEPENDENCY_VERSION
+  value: "0.27.2"
+- name: JAVA_TEST_VERSION
+  value: "0.45.0"
+envs:
+- name: DEFAULT_EXTENSIONS
+  value: "/opt/vscode-extensions/redhat-java-extension-linux-x64.vsix;/opt/vscode-extensions/vscjava.vscode-java-pack.vsix;/opt/vscode-extensions/vscjava.vscode-java-debug.vsix;/opt/vscode-extensions/vscjava.vscode-maven.vsix;/opt/vscode-extensions/vscjava.vscode-java-dependency.vsix;/opt/vscode-extensions/vscjava.vscode-java-test.vsix;/opt/vscode-extensions/mta-vscode-extension-core.vsix;/opt/vscode-extensions/mta-vscode-extension-java.vsix"
+execute:
+- script: install.sh
