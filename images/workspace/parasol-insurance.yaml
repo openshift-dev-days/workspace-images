@@ -9,7 +9,7 @@ modules:
   - path: "../../modules"
   install:
   - name: node20
-  - name: java21
+  - name: java25
   - name: maven
   - name: quarkus
   - name: opencode

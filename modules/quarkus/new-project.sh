@@ -49,7 +49,7 @@ function createQuarkusProject() {
     esac
   done
 
-  JAVA_VER=${JAVA_VER:-17}
+  JAVA_VER=${JAVA_VER:-25}
 
   quarkus create app --maven --java=${JAVA_VER} --no-wrapper --no-code --package-name=${GROUP_ID}.${APP_NAME} --extensions=${EXTENSIONS} ${QUARKUS_VERSION} ${GROUP_ID}:${APP_NAME}:0.1
   
