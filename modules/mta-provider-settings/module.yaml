@@ -1,0 +1,6 @@
+schema_version: 1
+name: mta-provider-settings
+version: latest
+description: "Copies MTA Lightspeed provider-settings from /globalconfig at workspace start"
+execute:
+- script: install.sh
