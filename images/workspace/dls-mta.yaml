@@ -10,5 +10,4 @@ modules:
   install:
   - name: java21
   - name: maven
-  - name: mta-vscode-extensions
   - name: mta-provider-settings
