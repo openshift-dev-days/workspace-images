@@ -13,3 +13,6 @@ modules:
   install:
   - name: dev-base
   - name: yq
+  - name: node20
+  - name: java21
+  - name: maven

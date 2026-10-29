@@ -8,9 +8,6 @@ modules:
   repositories:
   - path: "../../modules"
   install:
-  - name: node20
-  - name: java21
-  - name: maven
   - name: quarkus
   - name: opencode
   - name: zoocode
