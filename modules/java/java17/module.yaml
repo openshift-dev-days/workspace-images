@@ -8,3 +8,4 @@ envs:
 packages:
   install:
   - java-17-openjdk-devel
+  - maven.noarch
