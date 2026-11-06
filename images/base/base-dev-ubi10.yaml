@@ -15,4 +15,4 @@ modules:
   - name: yq
   - name: node20
   - name: java21
-  - name: maven
+

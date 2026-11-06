@@ -8,3 +8,4 @@ envs:
 packages:
   install:
   - java-25-openjdk-devel
+  - maven.noarch
